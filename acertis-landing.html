@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acertis TI e Soluções – Tecnologia que gera margem real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0F1B2D;
+    --navy2:  #162439;
+    --blue:   #1E6FFF;
+    --blue-dim: #1458CC;
+    --green:  #00C27C;
+    --green-dim: #00A268;
+    --slate:  #6B7A8D;
+    --light:  #F0F4F8;
+    --white:  #FFFFFF;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--light);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(15,27,45,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .logo span { color: var(--blue); }
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul li a {
+    font-size: 0.875rem; font-weight: 500; color: var(--slate);
+    text-decoration: none; transition: color .2s;
+  }
+  nav ul li a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--green); color: var(--navy) !important;
+    padding: 10px 22px; border-radius: 8px;
+    font-weight: 600 !important; transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--green-dim) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 60px;
+    padding: 140px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 70% 50%, rgba(30,111,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(30,111,255,0.12); border: 1px solid rgba(30,111,255,0.25);
+    color: var(--blue); padding: 6px 14px; border-radius: 20px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 700; line-height: 1.08; letter-spacing: -0.03em;
+    color: var(--white); margin-bottom: 24px;
+  }
+  h1 em { font-style: normal; color: var(--green); }
+
+  .hero-sub {
+    font-size: 1.1rem; line-height: 1.65; color: var(--slate);
+    max-width: 480px; margin-bottom: 40px;
+  }
+  .hero-sub strong { color: var(--light); font-weight: 500; }
+
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: var(--navy);
+    padding: 14px 28px; border-radius: 10px;
+    font-weight: 700; font-size: 0.95rem; text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--green-dim); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--light);
+    padding: 14px 28px; border-radius: 10px; border: 1px solid var(--border);
+    font-weight: 500; font-size: 0.95rem; text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 52px; padding-top: 36px;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item {}
+  .stat-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .stat-val span { color: var(--green); }
+  .stat-label { font-size: 0.8rem; color: var(--slate); margin-top: 2px; }
+
+  /* ── RADAR VISUAL ── */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .radar-wrap {
+    position: relative; width: 380px; height: 380px;
+  }
+  .radar-svg {
+    width: 100%; height: 100%;
+    animation: radar-spin 8s linear infinite;
+  }
+  @keyframes radar-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .radar-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .radar-center-icon {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--white);
+    line-height: 1;
+  }
+  .radar-center-label {
+    font-size: 0.72rem; color: var(--slate); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-top: 4px;
+  }
+
+  .radar-dot {
+    position: absolute;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px 3px rgba(0,194,124,0.5);
+    animation: dot-blink 2s infinite;
+  }
+  .radar-dot:nth-child(1) { top: 22%; left: 68%; animation-delay: 0s; }
+  .radar-dot:nth-child(2) { top: 60%; left: 20%; animation-delay: 0.7s; }
+  .radar-dot:nth-child(3) { top: 75%; left: 62%; animation-delay: 1.4s; }
+  @keyframes dot-blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  .radar-card {
+    position: absolute;
+    background: rgba(22,36,57,0.95);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 0.78rem; white-space: nowrap;
+    backdrop-filter: blur(8px);
+  }
+  .radar-card .rc-label { color: var(--slate); font-size: 0.7rem; }
+  .radar-card .rc-val { color: var(--white); font-weight: 600; }
+  .radar-card.loss { border-color: rgba(255,70,70,0.3); }
+  .radar-card.loss .rc-val { color: #FF6B6B; }
+  .radar-card.gain { border-color: rgba(0,194,124,0.3); }
+  .radar-card.gain .rc-val { color: var(--green); }
+  .radar-card.c1 { top: 2%; left: 55%; }
+  .radar-card.c2 { bottom: 8%; left: -8%; }
+  .radar-card.c3 { top: 45%; right: -12%; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 100px 60px; }
+  .section-eyebrow {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--blue);
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; letter-spacing: -0.025em; color: var(--white);
+    line-height: 1.15; margin-bottom: 18px;
+  }
+  h2 em { font-style: normal; color: var(--green); }
+  .section-sub {
+    font-size: 1.05rem; line-height: 1.65; color: var(--slate);
+    max-width: 560px;
+  }
+
+  /* ── PAIN ── */
+  #pain { background: var(--navy2); }
+  .pain-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: center; margin-top: 60px;
+  }
+  .pain-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+  .pain-list li {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px; border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    transition: border-color .2s;
+  }
+  .pain-list li:hover { border-color: rgba(255,107,107,0.3); }
+  .pain-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .pain-text h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; font-weight: 600; color: var(--white);
+    margin-bottom: 5px;
+  }
+  .pain-text p { font-size: 0.85rem; color: var(--slate); line-height: 1.55; }
+
+  .pain-cta-box {
+    background: linear-gradient(135deg, rgba(30,111,255,0.1) 0%, rgba(0,194,124,0.08) 100%);
+    border: 1px solid rgba(30,111,255,0.2);
+    border-radius: 20px; padding: 44px;
+    text-align: center;
+  }
+  .pain-cta-box h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem; font-weight: 700; color: var(--white);
+    margin-bottom: 14px; line-height: 1.2;
+  }
+  .pain-cta-box p { color: var(--slate); font-size: 0.9rem; line-height: 1.6; margin-bottom: 28px; }
+
+  /* ── PHASES ── */
+  #phases { background: var(--navy); }
+  .phases-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px; gap: 40px; flex-wrap: wrap;
+  }
+  .phases-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+  }
+  .phase-card {
+    border-radius: 16px; padding: 36px 30px;
+    border: 1px solid var(--border);
+    background: var(--navy2);
+    position: relative; overflow: hidden;
+    transition: border-color .25s, transform .2s;
+  }
+  .phase-card:hover { border-color: rgba(30,111,255,0.4); transform: translateY(-3px); }
+  .phase-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .phase-card.p1::before { background: linear-gradient(90deg, var(--blue), rgba(30,111,255,0)); }
+  .phase-card.p2::before { background: linear-gradient(90deg, var(--green), rgba(0,194,124,0)); }
+  .phase-card.p3::before { background: linear-gradient(90deg, #A855F7, rgba(168,85,247,0)); }
+
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .p1 .phase-badge { background: rgba(30,111,255,0.15); color: var(--blue); }
+  .p2 .phase-badge { background: rgba(0,194,124,0.15); color: var(--green); }
+  .p3 .phase-badge { background: rgba(168,85,247,0.15); color: #A855F7; }
+
+  .phase-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--white);
+    margin-bottom: 20px; line-height: 1.3;
+  }
+  .phase-items { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .phase-items li {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.88rem; color: var(--slate); line-height: 1.45;
+  }
+  .phase-items li::before {
+    content: '→'; color: var(--blue); font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .p2 .phase-items li::before { color: var(--green); }
+  .p3 .phase-items li::before { color: #A855F7; }
+
+  /* ── HOW IT WORKS ── */
+  #how { background: var(--navy2); }
+  .steps {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 0; margin-top: 60px; position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 28px; left: calc(12.5% + 20px); right: calc(12.5% + 20px);
+    height: 1px; background: linear-gradient(90deg, var(--blue), var(--green));
+    z-index: 0;
+  }
+  .step {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 0 20px; position: relative; z-index: 1;
+  }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--white);
+    background: var(--navy2); border: 2px solid var(--blue);
+    margin-bottom: 20px; position: relative; z-index: 2;
+  }
+  .step:nth-child(2) .step-num { border-color: #4B8FFF; }
+  .step:nth-child(3) .step-num { border-color: #00C27C; }
+  .step:nth-child(4) .step-num { border-color: var(--green); background: rgba(0,194,124,0.1); }
+  .step h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; font-weight: 700; color: var(--white);
+    margin-bottom: 8px;
+  }
+  .step p { font-size: 0.83rem; color: var(--slate); line-height: 1.55; }
+
+  /* ── TESTIMONIAL ── */
+  #proof { background: var(--navy); }
+  .proof-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    align-items: center; margin-top: 60px;
+  }
+  .testimonial-card {
+    background: var(--navy2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 44px;
+  }
+  .testimonial-card blockquote {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem; font-weight: 500; line-height: 1.6;
+    color: var(--white); margin-bottom: 28px;
+    font-style: italic;
+  }
+  .testimonial-card blockquote::before {
+    content: '"'; font-size: 3rem; line-height: 0; vertical-align: -0.5em;
+    color: var(--blue); margin-right: 4px;
+  }
+  .tc-author { display: flex; align-items: center; gap: 14px; }
+  .tc-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; color: var(--white); font-size: 0.9rem;
+  }
+  .tc-info strong { display: block; font-size: 0.9rem; color: var(--white); font-weight: 600; }
+  .tc-info span { font-size: 0.8rem; color: var(--slate); }
+
+  .results-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .result-card {
+    background: var(--navy2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px 24px; text-align: center;
+    transition: border-color .2s;
+  }
+  .result-card:hover { border-color: rgba(0,194,124,0.3); }
+  .result-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; font-weight: 700; color: var(--green);
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .result-desc { font-size: 0.8rem; color: var(--slate); margin-top: 6px; line-height: 1.4; }
+
+  /* ── CTA FINAL ── */
+  #cta {
+    background: var(--navy2);
+    text-align: center;
+  }
+  .cta-inner {
+    max-width: 680px; margin: 0 auto;
+  }
+  .cta-inner h2 { margin: 0 auto 18px; }
+  .cta-inner .section-sub { margin: 0 auto 40px; text-align: center; }
+  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .cta-trust {
+    display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+    margin-top: 36px;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.8rem; color: var(--slate);
+  }
+  .trust-item::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-brand .logo { font-size: 1.1rem; }
+  .footer-brand p { font-size: 0.78rem; color: var(--slate); margin-top: 6px; }
+  footer p.copy { font-size: 0.78rem; color: var(--slate); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    nav ul { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 50px; }
+    .hero-visual { order: -1; }
+    .radar-wrap { width: 280px; height: 280px; }
+    section { padding: 70px 24px; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .phases-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .steps::before { display: none; }
+    .proof-inner { grid-template-columns: 1fr; }
+    .phases-header { flex-direction: column; align-items: flex-start; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    .radar-card { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .radar-svg { animation: none; }
+    .radar-dot { animation: none; }
+    .hero-eyebrow::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Acer<span>TI</span>s</div>
+  <ul>
+    <li><a href="#pain">O Problema</a></li>
+    <li><a href="#phases">Soluções</a></li>
+    <li><a href="#how">Como Funciona</a></li>
+    <li><a href="#cta" class="nav-cta">Diagnóstico Gratuito</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Consultoria para Food Service</div>
+    <h1>
+      Tecnologia que fecha<br>
+      onde o dinheiro <em>vaza</em>
+    </h1>
+    <p class="hero-sub">
+      A Acertis identifica os pontos exatos de desperdício, atendimento falho e falta de controle no seu restaurante — e entrega a tecnologia certa para corrigir isso. <strong>Você fala direto com quem decide.</strong>
+    </p>
+    <div class="hero-ctas">
+      <a href="#cta" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        Quero meu diagnóstico grátis
+      </a>
+      <a href="#phases" class="btn-secondary">Ver as soluções</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-val">3<span>x</span></div>
+        <div class="stat-label">mais conversão no atendimento</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">-<span>40%</span></div>
+        <div class="stat-label">de desperdício de insumos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val"><span>+</span>MRR</div>
+        <div class="stat-label">receita recorrente e previsível</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RADAR VISUAL -->
+  <div class="hero-visual">
+    <div class="radar-wrap">
+      <svg class="radar-svg" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Circles -->
+        <circle cx="190" cy="190" r="170" stroke="rgba(30,111,255,0.12)" stroke-width="1"/>
+        <circle cx="190" cy="190" r="125" stroke="rgba(30,111,255,0.16)" stroke-width="1"/>
+        <circle cx="190" cy="190" r="80"  stroke="rgba(30,111,255,0.2)"  stroke-width="1"/>
+        <circle cx="190" cy="190" r="35"  stroke="rgba(30,111,255,0.3)"  stroke-width="1.5"/>
+        <!-- Cross -->
+        <line x1="190" y1="20" x2="190" y2="360" stroke="rgba(30,111,255,0.1)" stroke-width="1"/>
+        <line x1="20" y1="190" x2="360" y2="190" stroke="rgba(30,111,255,0.1)" stroke-width="1"/>
+        <!-- Sweep -->
+        <defs>
+          <radialGradient id="sweep" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1E6FFF" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#1E6FFF" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <path d="M190 190 L190 20 A170 170 0 0 1 330 270 Z" fill="url(#sweep)"/>
+      </svg>
+
+      <div class="radar-dot" style="top:22%;left:68%"></div>
+      <div class="radar-dot" style="top:60%;left:20%"></div>
+      <div class="radar-dot" style="top:75%;left:62%"></div>
+
+      <div class="radar-center">
+        <div class="radar-center-icon">⬡</div>
+        <div class="radar-center-label">Diagnóstico</div>
+      </div>
+
+      <div class="radar-card loss c1">
+        <div class="rc-label">Custo iFood</div>
+        <div class="rc-val">−R$ 3.200/mês</div>
+      </div>
+      <div class="radar-card loss c2">
+        <div class="rc-label">Atendimento lento</div>
+        <div class="rc-val">−18 mesas/dia</div>
+      </div>
+      <div class="radar-card gain c3">
+        <div class="rc-label">Pós-acertis</div>
+        <div class="rc-val">+R$ 8.500/mês</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section id="pain">
+  <div class="section-eyebrow">O Diagnóstico</div>
+  <h2>Onde o seu dinheiro<br>está <em>sumindo</em> agora</h2>
+  <div class="pain-grid">
+    <ul class="pain-list">
+      <li>
+        <div class="pain-icon">📱</div>
+        <div class="pain-text">
+          <h4>Atendimento que afoga a equipe</h4>
+          <p>WhatsApp sem gestão, pedidos repetidos no telefone e nenhum histórico do cliente. Cada mensagem virou um incêndio manual.</p>
+        </div>
+      </li>
+      <li>
+        <div class="pain-icon">📦</div>
+        <div class="pain-text">
+          <h4>Estoque no chute, desperdício real</h4>
+          <p>Sem previsão de demanda, você compra errado, joga fora e ainda descobre falta de insumo no pico do serviço.</p>
+        </div>
+      </li>
+      <li>
+        <div class="pain-icon">💳</div>
+        <div class="pain-text">
+          <h4>Repasses que somem sem rastro</h4>
+          <p>Conciliação manual de iFood, máquinas e Pix leva horas e ainda deixa divergências que nunca são investigadas.</p>
+        </div>
+      </li>
+      <li>
+        <div class="pain-icon">🔁</div>
+        <div class="pain-text">
+          <h4>Cliente que sumiu após a primeira visita</h4>
+          <p>Sem CRM nem automação de recompra, você paga pelo mesmo cliente várias vezes — ou o perde pro concorrente.</p>
+        </div>
+      </li>
+    </ul>
+    <div class="pain-cta-box">
+      <h3>A Acertis faz o raio-X do seu negócio em 60 minutos</h3>
+      <p>Nossa sessão de Discovery é gratuita e consultiva. Mapeamos os três maiores pontos de perda financeira e apresentamos um plano de ação com ROI estimado.</p>
+      <a href="#cta" class="btn-primary" style="justify-content:center;width:100%">
+        Agendar diagnóstico gratuito
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<section id="phases">
+  <div class="phases-header">
+    <div>
+      <div class="section-eyebrow">Portfólio</div>
+      <h2>Uma jornada em fases,<br>não uma venda de sistema</h2>
+    </div>
+    <p class="section-sub">Entramos pela vitória rápida. Expandimos conforme o seu negócio cresce e os dados mostram onde ir.</p>
+  </div>
+  <div class="phases-grid">
+    <div class="phase-card p1">
+      <span class="phase-badge">Fase 1 · Quick Wins</span>
+      <h3>Aterrissagem e primeiros resultados em semanas</h3>
+      <ul class="phase-items">
+        <li>Assistente Virtual no WhatsApp com IA (Typebot / Chatwoot) — atendimento automático 24h</li>
+        <li>Cardápio Digital com QR Code — autoatendimento na mesa, ticket médio maior</li>
+        <li>ERP + PDV STI3 — controle fiscal, retaguarda e fluxo de caixa em tempo real</li>
+      </ul>
+    </div>
+    <div class="phase-card p2">
+      <span class="phase-badge">Fase 2 · Retenção</span>
+      <h3>Fidelização e controle financeiro automatizados</h3>
+      <ul class="phase-items">
+        <li>Wi-Fi Marketing + CRM — captura de leads na loja física e campanhas de recompra automáticas</li>
+        <li>Conciliação Financeira — iFood, maquininhas e ERP integrados sem trabalho manual</li>
+        <li>Relatórios de LTV — entenda quanto cada cliente vale no longo prazo</li>
+      </ul>
+    </div>
+    <div class="phase-card p3">
+      <span class="phase-badge">Fase 3 · Inteligência</span>
+      <h3>BI, IA e infraestrutura para escalar com segurança</h3>
+      <ul class="phase-items">
+        <li>Dashboards em Power BI — decisões baseadas em dados reais, não em feeling</li>
+        <li>IA Preditiva de Demanda — previsão de compras com base em histórico e sazonalidade</li>
+        <li>Infraestrutura Cloud (Azure / AWS) — redundância, segurança e zero downtime</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-eyebrow">Como trabalhamos</div>
+  <h2>Do diagnóstico à margem real</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Discovery</h4>
+      <p>Mapeamos o negócio, identificamos as três maiores sangrias financeiras e documentamos tudo com clareza.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>Plano de Acerto</h4>
+      <p>Apresentamos uma proposta faseada com investimento, ROI estimado e cronograma realista — sem promessa vazia.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Implementação</h4>
+      <p>Você fala direto com quem implementa. Suporte executivo, sem intermediários juniores ou rotatividade de equipe.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Expansão Contínua</h4>
+      <p>Reuniões mensais com análise de BI. Avançamos pelas fases conforme os dados mostram o próximo ponto de ganho.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="section-eyebrow">Resultados</div>
+  <h2>Tecnologia que fecha a conta</h2>
+  <div class="proof-inner">
+    <div class="testimonial-card">
+      <blockquote>
+        Antes eu passava 3 horas por semana reconciliando iFood e maquininha na mão. Hoje o sistema fecha sozinho e eu consigo ver se tem divergência em segundos. Isso sozinho já pagou o investimento.
+      </blockquote>
+      <div class="tc-author">
+        <div class="tc-avatar">MR</div>
+        <div class="tc-info">
+          <strong>Marcos Ribeiro</strong>
+          <span>Proprietário · Restaurante Sal e Pimenta, SP</span>
+        </div>
+      </div>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-num">+34%</div>
+        <div class="result-desc">aumento de ticket médio com cardápio digital QR Code</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">−41%</div>
+        <div class="result-desc">redução de desperdício de insumos com IA Preditiva</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">3h</div>
+        <div class="result-desc">economizadas por semana em conciliação financeira manual</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">2,4x</div>
+        <div class="result-desc">mais recompras com automação de CRM e Wi-Fi Marketing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="section-eyebrow" style="text-align:center">Próximo passo</div>
+    <h2>60 minutos para saber<br>onde está a <em>margem perdida</em></h2>
+    <p class="section-sub">
+      Uma conversa direta, sem apresentação genérica de sistema. Mapeamos o seu negócio e entregamos um diagnóstico com os três pontos de perda financeira mais impactantes — de graça.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%2C+quero+agendar+meu+diagn%C3%B3stico+gratuito+com+a+Acertis" class="btn-primary" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.55 4.116 1.516 5.854L.036 23.4c-.072.27.162.504.432.432l5.546-1.48C7.884 23.45 9.877 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.659-.513-5.183-1.408l-.371-.22-3.843 1.026 1.026-3.843-.221-.372A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Falar no WhatsApp agora
+      </a>
+      <a href="mailto:contato@acertis.com.br" class="btn-secondary">Enviar e-mail</a>
+    </div>
+    <div class="cta-trust">
+      <div class="trust-item">Sem contrato de fidelidade inicial</div>
+      <div class="trust-item">Diagnóstico 100% gratuito</div>
+      <div class="trust-item">Atendimento direto com o fundador</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">Acer<span>TI</span>s</div>
+    <p>TI e Soluções · Tecnologia que gera margem real para o Food Service</p>
+  </div>
+  <p class="copy">© 2025 Acertis TI e Soluções. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>
